@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/JigaMotor.Burner.Api/JigaMotor.Burner.Api.csproj" />
+    <Project Path="src/JigaMotor.Everynet.Api/JigaMotor.Everynet.Api.csproj" />
+    <Project Path="src/JigaMotor.Shared/JigaMotor.Shared.csproj" />
+    <Project Path="src/JigaMotor.SharePoint.Api/JigaMotor.SharePoint.Api.csproj" />
+    <Project Path="src/JigaMotor.UI.Desktop/JigaMotor.UI.Desktop.csproj" />
+  </Folder>
+  <Project Path="JigaMotor/JigaMotor.csproj" />
+</Solution>

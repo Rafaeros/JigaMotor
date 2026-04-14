@@ -1,0 +1,6 @@
+@JigaMotor_HostAddress = http://localhost:5235
+
+GET {{JigaMotor_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
