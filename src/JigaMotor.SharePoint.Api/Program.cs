@@ -1,6 +1,7 @@
 using JigaMotor.SharePoint.Api.Extensions; // Para achar o seu Extension Method
 using JigaMotor.SharePoint.Api.Features.Common; // Para o GraphClientProvider
-using JigaMotor.SharePoint.Api.Features.Read;
+using JigaMotor.SharePoint.Api.Features.Device.CheckDevEuiExists;
+using JigaMotor.SharePoint.Api.Features.Device.GetAllDevices;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,10 +10,7 @@ builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnC
 
 // --- 1. SERVIÇOS (Usando a sua Injeção Limpa) ---
 builder.Services.AddOpenApi();
-
-// Aqui nós chamamos o seu pacote! Ele já injeta o Config, o Singleton e os Scoped.
 builder.Services.AddSharepointInfraestructure(builder.Configuration);
-
 var app = builder.Build();
 
 // --- 2. AQUECIMENTO (WARM-UP) DA API ---
@@ -47,6 +45,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.MapReadSharePoint(); 
+app.MapGetAllDevices();
+app.MapCheckDevEuiExists();
 
 app.Run();

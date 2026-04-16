@@ -1,7 +1,7 @@
 using Microsoft.Graph;
 using Azure.Identity;
 using Microsoft.Extensions.Options;
-using JigaMotor.Shared.Config;
+using JigaMotor.SharePoint.Api.Infrastructure.Configuration;
 
 namespace JigaMotor.SharePoint.Api.Features.Common;
 
@@ -13,9 +13,6 @@ public class GraphClientProvider(IOptions<SharePointOptions> options)
     public GraphServiceClient GetAuthenticatedClient()
     {
         if (_graphClient != null) return _graphClient;
-
-        Console.WriteLine($"[DEBUG-CONFIG] Tenant lido: '{_options.TenantId}'");
-        Console.WriteLine($"[DEBUG-CONFIG] Client lido: '{_options.ClientId}'");
 
         var options = new InteractiveBrowserCredentialOptions
         {

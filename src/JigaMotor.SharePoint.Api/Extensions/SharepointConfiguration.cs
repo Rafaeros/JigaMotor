@@ -1,8 +1,9 @@
-﻿using JigaMotor.SharePoint.Api.Infraestructure;
-using JigaMotor.SharePoint.Api.Features.Common;
-using JigaMotor.SharePoint.Api.Features.Read;
-using JigaMotor.Shared.Config;
-using JigaMotor.Shared.Interfaces;
+﻿using JigaMotor.SharePoint.Api.Features.Common;
+using JigaMotor.SharePoint.Api.Infrastructure.Configuration;
+using JigaMotor.SharePoint.Api.Domain.Interfaces;
+using JigaMotor.SharePoint.Api.Infrastructure;
+using JigaMotor.SharePoint.Api.Features.Device.GetAllDevices;
+using JigaMotor.SharePoint.Api.Features.Device.CheckDevEuiExists;
 
 
 namespace JigaMotor.SharePoint.Api.Extensions
@@ -18,7 +19,8 @@ namespace JigaMotor.SharePoint.Api.Extensions
 
             services.AddScoped<IDeviceRepository, SharePointDeviceRepository>();
 
-            services.AddScoped<ReadUseCase>();
+            services.AddScoped<GetAllDevicesUseCase>();
+            services.AddScoped<CheckDevEuiExistsUseCase>();
 
             return services;
         }
