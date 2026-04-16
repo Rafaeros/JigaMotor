@@ -8,9 +8,15 @@ public static class CheckDevEuiExistsEndPoint
     {
         app.MapGet("/devices/{devEui}", async (string devEui, CheckDevEuiExistsUseCase useCase) =>
         {
-            var result = await useCase.ExistsByDevEuiAsync(devEui);
-            return result ? Results.Ok("Dispositivo já existe com esse DevEui")
-                          : Results.NotFound("Nenhum dispositivo encontrado com esse DevEui");
+            var exists = await useCase.ExistsByDevEuiAsync(devEui);
+
+            var response = new CheckDevEuiExistsResponse(
+                DevEui: devEui,
+                Exists: exists,
+                IsAvailable: !exists
+            );
+
+            return Results.Ok(response);
         })
         .WithName("CheckDevEuiExists")
         .WithTags("SharePoint");
