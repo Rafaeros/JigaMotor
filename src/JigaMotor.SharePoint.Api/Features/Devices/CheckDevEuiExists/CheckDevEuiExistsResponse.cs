@@ -1,6 +1,6 @@
 ﻿
 
-namespace JigaMotor.SharePoint.Api.Features.Device.CheckDevEuiExists
+namespace JigaMotor.SharePoint.Api.Features.Devices.CheckDevEuiExists
 {
     public record CheckDevEuiExistsResponse(
         string DevEui,

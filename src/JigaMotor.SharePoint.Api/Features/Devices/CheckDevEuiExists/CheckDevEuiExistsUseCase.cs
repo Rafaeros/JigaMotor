@@ -1,6 +1,6 @@
 ﻿using JigaMotor.SharePoint.Api.Domain.Interfaces;
 
-namespace JigaMotor.SharePoint.Api.Features.Device.CheckDevEuiExists
+namespace JigaMotor.SharePoint.Api.Features.Devices.CheckDevEuiExists
 {
     public class CheckDevEuiExistsUseCase(IDeviceRepository deviceRepository)
     {

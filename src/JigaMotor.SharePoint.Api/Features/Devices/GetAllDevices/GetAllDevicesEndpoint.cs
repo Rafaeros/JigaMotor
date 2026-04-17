@@ -1,4 +1,4 @@
-﻿namespace JigaMotor.SharePoint.Api.Features.Device.GetAllDevices;
+﻿namespace JigaMotor.SharePoint.Api.Features.Devices.GetAllDevices;
 
 public static class GetAllDevicesEndpoint
 {

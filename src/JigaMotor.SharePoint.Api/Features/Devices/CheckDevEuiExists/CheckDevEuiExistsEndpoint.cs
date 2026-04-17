@@ -1,12 +1,12 @@
-﻿
+﻿using JigaMotor.Shared.Responses;
 
-namespace JigaMotor.SharePoint.Api.Features.Device.CheckDevEuiExists;
+namespace JigaMotor.SharePoint.Api.Features.Devices.CheckDevEuiExists;
 
 public static class CheckDevEuiExistsEndPoint
 {
     public static void MapCheckDevEuiExists(this IEndpointRouteBuilder app)
     {
-        app.MapGet("/devices/{devEui}", async (string devEui, CheckDevEuiExistsUseCase useCase) =>
+        app.MapGet("/devices/check-exists/{devEui}", async (string devEui, CheckDevEuiExistsUseCase useCase) =>
         {
             var exists = await useCase.ExistsByDevEuiAsync(devEui);
 
@@ -16,10 +16,12 @@ public static class CheckDevEuiExistsEndPoint
                 IsAvailable: !exists
             );
 
-            return Results.Ok(response);
+            var apiResponse = ApiResponse<CheckDevEuiExistsResponse>.Success(response);
+
+            return Results.Ok(apiResponse);
         })
         .WithName("CheckDevEuiExists")
-        .WithTags("SharePoint");
-}
+        .WithTags("Devices");
+    }
 
 }

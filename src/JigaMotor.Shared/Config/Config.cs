@@ -1,1 +1,0 @@
-namespace JigaMotor.Shared.Config;

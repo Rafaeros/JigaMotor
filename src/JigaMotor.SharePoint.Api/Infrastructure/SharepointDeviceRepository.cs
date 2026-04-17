@@ -1,12 +1,12 @@
+using JigaMotor.SharePoint.Api.Domain.Entities;
+using JigaMotor.SharePoint.Api.Domain.Interfaces;
+using JigaMotor.SharePoint.Api.Features.Common;
+using JigaMotor.SharePoint.Api.Infrastructure.Configuration;
+using JigaMotor.SharePoint.Api.Infrastructure.Mappers;
 using Microsoft.Extensions.Options;
 using Microsoft.Graph;
 using Microsoft.Graph.Models;
 using Microsoft.Graph.Models.ODataErrors;
-using JigaMotor.SharePoint.Api.Features.Common;
-using JigaMotor.SharePoint.Api.Infrastructure.Configuration;
-using JigaMotor.SharePoint.Api.Infrastructure.Mappers;
-using JigaMotor.SharePoint.Api.Domain.Entities;
-using JigaMotor.SharePoint.Api.Domain.Interfaces;
 
 namespace JigaMotor.SharePoint.Api.Infrastructure;
 
@@ -33,6 +33,23 @@ public class SharePointDeviceRepository(
             });
 
             return allDevices;
+        });
+    }
+
+    public async Task<DeviceProductionRecord?> GetByDevEuiAsync(string DevEui)
+    {
+        return await ExecuteWithGraphErrorHandlingAsync(async () =>
+        {
+            var client = graphProvider.GetAuthenticatedClient();
+            var (siteId, listId) = await ResolveSiteAndListAsync(client);
+            var result = await client.Sites[siteId].Lists[listId].Items.GetAsync(config =>
+            {
+                config.QueryParameters.Expand = ["fields"];
+                config.QueryParameters.Filter = $"fields/DEVEUI eq '{DevEui}'";
+                config.QueryParameters.Top = 1;
+            });
+            var item = result?.Value?.FirstOrDefault();
+            return item != null ? SharePointDeviceMapper.ToDomain(item) : null;
         });
     }
 

@@ -1,4 +1,5 @@
 ﻿namespace JigaMotor.SharePoint.Api.Infrastructure.Configuration;
+
 public class SharePointOptions
 {
     public string TenantId { get; set; } = string.Empty;

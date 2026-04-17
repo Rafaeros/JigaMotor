@@ -1,7 +1,8 @@
-﻿using Microsoft.Graph.Models;
-using JigaMotor.SharePoint.Api.Domain.Entities;
+﻿using JigaMotor.SharePoint.Api.Domain.Entities;
+using Microsoft.Graph.Models;
 
 namespace JigaMotor.SharePoint.Api.Infrastructure.Mappers;
+
 public static class SharePointDeviceMapper
 {
     public static DeviceProductionRecord ToDomain(ListItem item)
