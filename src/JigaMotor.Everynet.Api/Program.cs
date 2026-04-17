@@ -1,41 +1,37 @@
+using FluentValidation;
+using JigaMotor.Everynet.Api.Extensions;
+using JigaMotor.Everynet.Api.Features.Devices.GetDeviceByDevEui;
+using JigaMotor.Everynet.Api.Features.Devices.SendEmergencyOn;
+using JigaMotor.Everynet.Api.Features.Devices.SendEmergencyOff;
+using Scalar.AspNetCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 builder.Services.AddOpenApi();
+builder.Services.AddEverynetInfrastructure(builder.Configuration);
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+builder.Services.AddProblemDetails();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference(options =>
+    {
+        options.WithTitle("JigaMotor - Everynet API")
+               .WithTheme(ScalarTheme.DeepSpace);
+    });
 }
 
-app.UseHttpsRedirection();
+var apiV1 = app.MapGroup("/api/v1");
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+var devicesGroup = apiV1.MapGroup("/devices").WithTags("Devices");
+devicesGroup.MapGetDeviceByDevEuiEndpoint();
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+// Suas novas fatias independentes!
+devicesGroup.MapSendEmergencyOnEndpoint();
+devicesGroup.MapSendEmergencyOffEndpoint();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
