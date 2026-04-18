@@ -1,4 +1,4 @@
-git add using FluentValidation;
+using FluentValidation;
 
 namespace JigaMotor.Everynet.Api.Features.Devices.SendEmergencyOn
 {

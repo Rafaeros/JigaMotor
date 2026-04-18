@@ -29,8 +29,6 @@ var apiV1 = app.MapGroup("/api/v1");
 
 var devicesGroup = apiV1.MapGroup("/devices").WithTags("Devices");
 devicesGroup.MapGetDeviceByDevEuiEndpoint();
-
-// Suas novas fatias independentes!
 devicesGroup.MapSendEmergencyOnEndpoint();
 devicesGroup.MapSendEmergencyOffEndpoint();
 

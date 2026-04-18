@@ -5,10 +5,12 @@ namespace JigaMotor.Everynet.Api.Features.Devices.SendEmergencyOn
 {
     public class SendEmergencyOnUseCase(IEverynetRepository everynetRepository)
     {
-        public async Task<string> ExecuteAsync(SendEmergencyOnRequest request)
+        public async Task<SendEmergencyOnResponse> ExecuteAsync(SendEmergencyOnRequest request)
         {
             var command = new DownlinkCommand(request.DevEui, request.PayloadBase64, request.Port, true);
-            return await everynetRepository.QueueDownlinkAsync(command);
+            var messageId = await everynetRepository.QueueDownlinkAsync(command);
+
+            return new SendEmergencyOnResponse(request.DevEui, messageId, DateTime.UtcNow);
         }
     }
 }

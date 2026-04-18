@@ -1,5 +1,6 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using JigaMotor.Shared.Responses; // Não se esqueça deste using!
 
 namespace JigaMotor.Everynet.Api.Features.Devices.SendEmergencyOff
 {
@@ -18,8 +19,14 @@ namespace JigaMotor.Everynet.Api.Features.Devices.SendEmergencyOff
                     return Results.ValidationProblem(validationResult.ToDictionary());
                 }
 
-                var response = await useCase.ExecuteAsync(request);
-                return Results.Ok(new { Message = "Command sent", Response = response });
+                var result = await useCase.ExecuteAsync(request);
+
+                var apiResponse = ApiResponse<SendEmergencyOffResponse>.Success(
+                    data: result,
+                    message: "Comando de DESATIVAÇÃO de emergência enviado à Everynet com sucesso."
+                );
+
+                return Results.Ok(apiResponse);
             })
             .WithName("SendEmergencyOff")
             .WithTags("Devices");

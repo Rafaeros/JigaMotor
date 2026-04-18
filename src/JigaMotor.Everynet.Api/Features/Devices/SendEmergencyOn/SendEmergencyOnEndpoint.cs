@@ -1,4 +1,5 @@
 using FluentValidation;
+using JigaMotor.Shared.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JigaMotor.Everynet.Api.Features.Devices.SendEmergencyOn
@@ -18,8 +19,14 @@ namespace JigaMotor.Everynet.Api.Features.Devices.SendEmergencyOn
                     return Results.ValidationProblem(validationResult.ToDictionary());
                 }
 
-                var response = await useCase.ExecuteAsync(request);
-                return Results.Ok(new { Message = "Command sent", Response = response });
+                var result = await useCase.ExecuteAsync(request);
+
+                var apiResponse = ApiResponse<SendEmergencyOnResponse>.Success(
+                    data: result,
+                    message: "Comando de ATIVAÇÃO de emergência enviado à Everynet com sucesso."
+                );
+
+                return Results.Ok(apiResponse);
             })
             .WithName("SendEmergencyOn")
             .WithTags("Devices");
