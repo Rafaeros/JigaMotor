@@ -1,4 +1,4 @@
-﻿using JigaMotor.SharePoint.Api.Domain.Entities;
+using JigaMotor.SharePoint.Api.Domain.Entities;
 using Microsoft.Graph.Models;
 
 namespace JigaMotor.SharePoint.Api.Infrastructure.Mappers;
@@ -52,12 +52,12 @@ public static class SharePointDeviceMapper
         var metadata = new ProductionMetadata(
             TagStatus: GetField("TAG"),
             RdpStatus: GetField("RDP"),
-            BoxNumber: GetField("CAIXA"),
+            BoxNumber: GetField("Caixa"),
             ProductionOrder: GetField("OrdemProducao"),
             PunchDate: GetDate("DataBatida")
         );
 
-        _ = int.TryParse(GetField("Title"), out int domainId);
+        _ = int.TryParse(GetField("N"), out int domainId);
 
         return new DeviceProductionRecord(
             Id: domainId,
@@ -73,5 +73,32 @@ public static class SharePointDeviceMapper
             Consumption: consumption,
             Metadata: metadata
         );
+    }
+
+    public static Dictionary<string, object> ToSharePoint(DeviceProductionRecord device)
+    {
+        var data = new Dictionary<string, object>
+        {
+            { "LORA", device.Network?.LoraId ?? string.Empty },
+            { "DEVEUI", device.Network?.DevEui ?? string.Empty },
+            { "APPEUI", device.Network?.AppEui ?? string.Empty },
+            { "DEVADDR", device.Network?.DevAddr ?? string.Empty },
+            { "NWSKEY", device.Network?.NwkSKey ?? string.Empty },
+            { "APPSKEY", device.Network?.AppSKey ?? string.Empty },
+            { "SERIE", device.Serie ?? string.Empty },
+            { "BLUETOOTH", device.Bluetooth ?? string.Empty },
+            { "LOTE", device.BatchNumber ?? string.Empty },
+            { "N", device.Id },
+            { "FIRMWARE", device.FirmwareVersion ?? string.Empty },
+            { "MEMORY", device.MemoryVersion ?? string.Empty },
+            { "MODELO", device.Model ?? string.Empty }
+        };
+
+        if (device.RecordDate.HasValue && device.RecordDate.Value != DateTime.MinValue)
+        {
+            data.Add("DATA", device.RecordDate.Value.ToString("yyyy-MM-ddTHH:mm:ssZ"));
+        }
+
+        return data;
     }
 }

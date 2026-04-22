@@ -1,4 +1,4 @@
-﻿namespace JigaMotor.SharePoint.Api.Domain.Entities;
+namespace JigaMotor.SharePoint.Api.Domain.Entities;
 
 public record NetworkKeys(
     string LoraId,
@@ -10,26 +10,26 @@ public record NetworkKeys(
 );
 
 public record HardwareTests(
-    string P2pStatus,
-    string AdcStatus,
-    string EverynetStatus,
-    string OtpStatus,
-    string FirmwareStatus
+    string? P2pStatus,
+    string? AdcStatus,
+    string? EverynetStatus,
+    string? OtpStatus,
+    string? FirmwareStatus
 );
 
 public record PowerConsumptionTests(
-    string LrwEmOnStatus,
-    string AdvEmOnStatus,
-    string PacketEmOnStatus,
-    string LrwEmOffStatus,
-    string AdvEmOffStatus,
-    string PacketEmOffStatus
+    string? LrwEmOnStatus,
+    string? AdvEmOnStatus,
+    string? PacketEmOnStatus,
+    string? LrwEmOffStatus,
+    string? AdvEmOffStatus,
+    string? PacketEmOffStatus
 );
 
 public record ProductionMetadata(
-    string TagStatus,
-    string RdpStatus,
-    string BoxNumber,
+    string? TagStatus,
+    string? RdpStatus,
+    string? BoxNumber,
     string? ProductionOrder,
     DateTime? PunchDate
 );

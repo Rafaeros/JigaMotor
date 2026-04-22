@@ -40,4 +40,28 @@ public class GraphClientProvider(IOptions<SharePointOptions> options)
 
         return _graphClient;
     }
+
+    public async Task<string> GetSharePointAccessTokenAsync()
+    {
+        var credential = new ClientSecretCredential(
+            tenantId: _options.TenantId,
+            clientId: _options.ClientId,
+            clientSecret: _options.ClientSecret
+        );
+
+        // Extrai o host de forma robusta (ex: "tenant.sharepoint.com")
+        var rawUrl = _options.SiteUrl.Replace(":/", "/");
+        if (!rawUrl.StartsWith("https://")) rawUrl = "https://" + rawUrl;
+        
+        var uri = new Uri(rawUrl);
+        var host = uri.Host; 
+
+        // O escopo para SharePoint REST API deve ser o host + /.default
+        var scopes = new[] { $"https://{host}/.default" };
+
+        var tokenRequestContext = new Azure.Core.TokenRequestContext(scopes);
+        var token = await credential.GetTokenAsync(tokenRequestContext);
+
+        return token.Token;
+    }
 }

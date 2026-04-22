@@ -2,6 +2,13 @@ using JigaMotor.SharePoint.Api.Extensions;
 using JigaMotor.SharePoint.Api.Features.Devices.CheckDevEuiExists;
 using JigaMotor.SharePoint.Api.Features.Devices.GetAllDevices;
 using JigaMotor.SharePoint.Api.Features.Devices.GetDeviceByDevEui;
+using JigaMotor.SharePoint.Api.Features.Devices.CheckDeviceAvailability;
+using JigaMotor.SharePoint.Api.Features.Devices.CreateInitialDevice;
+using JigaMotor.SharePoint.Api.Features.Devices.UpdateHardwareTests;
+using JigaMotor.SharePoint.Api.Features.Devices.UpdateProductionMetadata;
+using JigaMotor.SharePoint.Api.Features.Devices.DeleteDeviceByDevEui;
+using JigaMotor.SharePoint.Api.Features.Devices.AttachDeviceLog;
+using JigaMotor.SharePoint.Api.Features.Devices.UpdatePowerConsumptionTests;
 
 using Scalar.AspNetCore;
 
@@ -26,8 +33,17 @@ if (app.Environment.IsDevelopment())
 }
 
 var apiV1 = app.MapGroup("/api/v1");
-apiV1.MapGetAllDevices();
-apiV1.MapCheckDevEuiExists();
-apiV1.MapGetDeviceByDevEui();
+
+var devicesGroup = apiV1.MapGroup("/devices").WithTags("Devices");
+devicesGroup.MapGetAllDevices();
+devicesGroup.MapCheckDevEuiExists();
+devicesGroup.MapGetDeviceByDevEui();
+devicesGroup.MapCheckDeviceAvailability();
+devicesGroup.MapCreateInitialDevice();
+devicesGroup.MapUpdateHardwareTests();
+devicesGroup.MapUpdatePowerConsumptionTests();
+devicesGroup.MapUpdateProductionMetadata();
+devicesGroup.MapDeleteDeviceByDevEui();
+devicesGroup.MapAttachDeviceLog();
 
 app.Run();
