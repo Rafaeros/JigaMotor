@@ -1,0 +1,65 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <!-- LED Style -->
+    <Style Selector="Border.led">
+        <Setter Property="Width" Value="12"/>
+        <Setter Property="Height" Value="12"/>
+        <Setter Property="CornerRadius" Value="100"/>
+        <Setter Property="Margin" Value="0,0,10,0"/>
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.3"/>
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <Style Selector="Border.led-green">
+        <Setter Property="Background" Value="#10B981"/>
+        <Setter Property="BoxShadow" Value="0 0 8 1 #10B981"/>
+    </Style>
+
+    <Style Selector="Border.led-off">
+        <Setter Property="Background" Value="#334155"/>
+        <Setter Property="BoxShadow" Value="0 0 0 0 Transparent"/>
+    </Style>
+
+    <!-- Status Item Container -->
+    <Style Selector="Border.status-item">
+        <Setter Property="Background" Value="#1E293B"/>
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="Padding" Value="15,10"/>
+        <Setter Property="Margin" Value="0,0,0,8"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="#334155"/>
+    </Style>
+
+    <Style Selector="TextBlock.status-text">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="#F8FAFC"/>
+    </Style>
+
+    <Style Selector="TextBlock.status-ok">
+        <Setter Property="Foreground" Value="#10B981"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Margin" Value="5,0,0,0"/>
+    </Style>
+
+    <!-- Terminal Style -->
+    <Style Selector="Border.terminal-container">
+        <Setter Property="Background" Value="#020617"/>
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="#1E293B"/>
+        <Setter Property="Padding" Value="10"/>
+    </Style>
+
+    <Style Selector="SelectableTextBlock.terminal-text">
+        <Setter Property="FontFamily" Value="Cascadia Code, Consolas, Monospace"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Foreground" Value="#38BDF8"/> <!-- Light Cyan/Blue -->
+    </Style>
+
+</Styles>

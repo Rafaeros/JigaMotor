@@ -1,0 +1,47 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="JigaMotor.UI.Desktop.Views.SettingsView">
+    <StackPanel Margin="40" Spacing="20" MaxWidth="600" HorizontalAlignment="Left">
+        <TextBlock Text="CONFIGURAÇÕES" FontSize="24" FontWeight="Bold" Foreground="{StaticResource PrimaryBrush}"/>
+        
+        <StackPanel Spacing="10">
+            <TextBlock Text="Impressora Padrão" FontWeight="SemiBold"/>
+            <ComboBox HorizontalAlignment="Stretch" SelectedIndex="0">
+                <ComboBoxItem>Zebra ZD420 (USB001)</ComboBoxItem>
+                <ComboBoxItem>HP LaserJet Pro (Network)</ComboBoxItem>
+                <ComboBoxItem>Microsoft Print to PDF</ComboBoxItem>
+            </ComboBox>
+        </StackPanel>
+
+        <StackPanel Spacing="10">
+            <TextBlock Text="Porta COM da Jiga" FontWeight="SemiBold"/>
+            <ComboBox HorizontalAlignment="Stretch" SelectedIndex="1">
+                <ComboBoxItem>COM1</ComboBoxItem>
+                <ComboBoxItem>COM3 (USB Serial Port)</ComboBoxItem>
+                <ComboBoxItem>COM4</ComboBoxItem>
+            </ComboBox>
+        </StackPanel>
+
+        <StackPanel Spacing="10">
+            <TextBlock Text="Caminho do Firmware (.bin)" FontWeight="SemiBold"/>
+            <Grid ColumnDefinitions="*, Auto">
+                <TextBox Text="C:\Firmwares\JigaMotor_v2.1.0_prod.bin" IsReadOnly="True" VerticalAlignment="Center"/>
+                <Button Content="Procurar" Grid.Column="1" Margin="10,0,0,0"/>
+            </Grid>
+        </StackPanel>
+
+        <CheckBox Content="Habilitar Log Detalhado (Debug)" IsChecked="True"/>
+        <CheckBox Content="Auto-impressão ao finalizar" IsChecked="True"/>
+
+        <Button Content="SALVAR CONFIGURAÇÕES" 
+                Background="{StaticResource PrimaryBrush}" 
+                Foreground="{StaticResource BackgroundColor}"
+                FontWeight="Bold"
+                Padding="15,10"
+                CornerRadius="6"
+                Margin="0,20,0,0"/>
+    </StackPanel>
+</UserControl>

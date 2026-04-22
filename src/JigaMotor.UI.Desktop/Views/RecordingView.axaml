@@ -1,0 +1,126 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="700"
+             x:Class="JigaMotor.UI.Desktop.Views.RecordingView">
+    <Grid ColumnDefinitions="*, 350" Margin="20">
+        <!-- Left Side: Terminal -->
+        <Grid RowDefinitions="Auto, *" Grid.Column="0" Margin="0,0,20,0">
+            <TextBlock Text="TERMINAL DE GRAVAÇÃO" 
+                       FontSize="12" 
+                       FontWeight="Bold" 
+                       Foreground="{StaticResource TextSecondaryBrush}"
+                       Margin="0,0,0,10"/>
+            
+            <Border Classes="terminal-container" Grid.Row="1">
+                <ScrollViewer>
+                    <SelectableTextBlock Classes="terminal-text" TextWrapping="Wrap">
+[12:08:51] JigaMotor v2.0.0 iniciada...
+[12:08:52] Aguardando conexão do hardware...
+[12:08:53] Hardware detectado: nRF54L15
+[12:08:54] Iniciando processo de gravação...
+[12:08:55] Validando chaves de segurança...
+[12:08:56] Chaves OK!
+[12:08:57] Gravando firmware de teste...
+[12:08:59] Firmware gravado com sucesso.
+[12:09:00] Iniciando Testes de Hardware...
+[12:09:05] Testes de Hardware finalizados: OK
+[12:09:06] Configurando LORAWAN...
+[12:09:08] LORAWAN Configurado.
+[12:09:09] Validando P2P...
+[12:09:10] P2P OK.
+[12:09:11] Enviando para fila de impressão...
+[12:09:12] Etiqueta impressa.
+[12:09:13] GRAVAÇÃO FINALIZADA COM SUCESSO.
+                    </SelectableTextBlock>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+
+        <!-- Right Side: Status LEDs -->
+        <StackPanel Grid.Column="1">
+            <TextBlock Text="STATUS DA OPERAÇÃO" 
+                       FontSize="12" 
+                       FontWeight="Bold" 
+                       Foreground="{StaticResource TextSecondaryBrush}"
+                       Margin="0,0,0,10"/>
+
+            <!-- Status Items -->
+            <Border Classes="status-item">
+                <StackPanel Orientation="Horizontal">
+                    <Border Classes="led led-green"/>
+                    <TextBlock Text="Validando Chaves" Classes="status-text"/>
+                    <TextBlock Text="OK" Classes="status-ok"/>
+                </StackPanel>
+            </Border>
+
+            <Border Classes="status-item">
+                <StackPanel Orientation="Horizontal">
+                    <Border Classes="led led-green"/>
+                    <TextBlock Text="Firmware de teste gravado" Classes="status-text"/>
+                    <TextBlock Text="OK" Classes="status-ok"/>
+                </StackPanel>
+            </Border>
+
+            <Border Classes="status-item">
+                <StackPanel Orientation="Horizontal">
+                    <Border Classes="led led-green"/>
+                    <TextBlock Text="Testes de Hardware" Classes="status-text"/>
+                    <TextBlock Text="OK" Classes="status-ok"/>
+                </StackPanel>
+            </Border>
+
+            <Border Classes="status-item">
+                <StackPanel Orientation="Horizontal">
+                    <Border Classes="led led-green"/>
+                    <TextBlock Text="LORAWAN" Classes="status-text"/>
+                    <TextBlock Text="OK" Classes="status-ok"/>
+                </StackPanel>
+            </Border>
+
+            <Border Classes="status-item">
+                <StackPanel Orientation="Horizontal">
+                    <Border Classes="led led-green"/>
+                    <TextBlock Text="P2P" Classes="status-text"/>
+                    <TextBlock Text="OK" Classes="status-ok"/>
+                </StackPanel>
+            </Border>
+
+            <Border Classes="status-item">
+                <StackPanel Orientation="Horizontal">
+                    <Border Classes="led led-green"/>
+                    <TextBlock Text="IMPRESSÃO DE ETIQUETAS" Classes="status-text"/>
+                    <TextBlock Text="OK" Classes="status-ok"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Final Success Message -->
+            <Border Margin="0,20,0,0" Padding="20" CornerRadius="12" Background="#064E3B" BorderBrush="#10B981" BorderThickness="1">
+                <StackPanel HorizontalAlignment="Center">
+                    <TextBlock Text="GRAVAÇÃO FINALIZADA" 
+                               FontSize="18" 
+                               FontWeight="Heavy" 
+                               Foreground="#10B981" 
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="DISPOSITIVO PRONTO PARA USO" 
+                               FontSize="10" 
+                               Foreground="#D1FAE5" 
+                               HorizontalAlignment="Center"
+                               Margin="0,5,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Control Buttons -->
+            <Button Content="NOVA GRAVAÇÃO" 
+                    Background="{StaticResource PrimaryBrush}" 
+                    Foreground="{StaticResource BackgroundColor}"
+                    FontWeight="Bold"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    Padding="15"
+                    CornerRadius="8"
+                    Margin="0,30,0,0"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

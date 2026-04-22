@@ -2,8 +2,71 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:views="clr-namespace:JigaMotor.UI.Desktop.Views"
+        mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
         x:Class="JigaMotor.UI.Desktop.MainWindow"
-        Title="JigaMotor.UI.Desktop">
-    Welcome to Avalonia!
+        Title="JigaMotor - Sistema de Gravação Profissional"
+        Background="{StaticResource BackgroundBrush}"
+        Foreground="{StaticResource TextPrimaryBrush}"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid RowDefinitions="Auto, *">
+        <!-- Header / Branding -->
+        <Border Grid.Row="0" Background="{StaticResource SurfaceBrush}" Height="60" Padding="20,0" BorderThickness="0,0,0,1" BorderBrush="{StaticResource SurfaceLightBrush}">
+            <Grid ColumnDefinitions="Auto, *, Auto">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Path Data="M12,2L4.5,20.29L5.21,21L12,18L18.79,21L19.5,20.29L12,2Z" 
+                          Fill="{StaticResource PrimaryBrush}" 
+                          Width="24" Height="24" 
+                          Stretch="Uniform" 
+                          Margin="0,0,10,0"/>
+                    <TextBlock Text="JIGAMOTOR" 
+                               FontSize="20" 
+                               FontWeight="Heavy" 
+                               LetterSpacing="2"
+                               Foreground="{StaticResource PrimaryBrush}"/>
+                    <TextBlock Text="PRO" 
+                               FontSize="10" 
+                               FontWeight="Bold" 
+                               VerticalAlignment="Top" 
+                               Margin="5,2,0,0"
+                               Foreground="{StaticResource PrimaryDarkBrush}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Spacing="20">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Ellipse Width="8" Height="8" Fill="{StaticResource SuccessBrush}" Margin="0,0,5,0"/>
+                        <TextBlock Text="HARDWARE CONECTADO" FontSize="11" FontWeight="Bold" Foreground="{StaticResource SuccessBrush}"/>
+                    </StackPanel>
+                    <TextBlock Text="v2.0.0" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Main Navigation Content -->
+        <TabControl Grid.Row="1" TabStripPlacement="Left">
+            <TabControl.Styles>
+                <Style Selector="TabItem">
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="FontWeight" Value="SemiBold"/>
+                    <Setter Property="Height" Value="50"/>
+                    <Setter Property="Padding" Value="20,0"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                </Style>
+                <Style Selector="TabItem:selected /template/ Border#PART_SelectedPipe">
+                    <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+                </Style>
+            </TabControl.Styles>
+
+            <TabItem Header="GRAVAÇÃO">
+                <views:RecordingView/>
+            </TabItem>
+            
+            <TabItem Header="CONFIGURAÇÕES">
+                <views:SettingsView/>
+            </TabItem>
+        </TabControl>
+    </Grid>
 </Window>
+
