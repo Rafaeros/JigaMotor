@@ -1,4 +1,7 @@
-﻿namespace JigaMotor.Everynet.Api.Features.Devices.GetDeviceByDevEui
+using JigaMotor.Everynet.Api.Domain.Entities;
+using JigaMotor.Shared.Responses;
+
+namespace JigaMotor.Everynet.Api.Features.Devices.GetDeviceByDevEui
 {
     public static class GetDeviceByDevEuiEndpoint
     {
@@ -7,10 +10,16 @@
             app.MapGet("/{devEui}", async (string devEui, GetDeviceByDevEuiUseCase useCase) =>
             {
                 var device = await useCase.ExecuteAsync(devEui);
-                return device is not null ? Results.Ok(device) : Results.NotFound();
+                
+                var apiResponse = ApiResponse<EverynetDevice>.Success(
+                    data: device!,
+                    message: "Dispositivo recuperado com sucesso."
+                );
+
+                return Results.Ok(apiResponse);
             })
             .WithName("GetDeviceByDevEui")
-            .WithTags("Devices");
+            .WithTags("Management API (Devices)");
         }
     }
 }

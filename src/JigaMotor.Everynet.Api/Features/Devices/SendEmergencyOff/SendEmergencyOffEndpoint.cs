@@ -29,7 +29,7 @@ namespace JigaMotor.Everynet.Api.Features.Devices.SendEmergencyOff
                 return Results.Ok(apiResponse);
             })
             .WithName("SendEmergencyOff")
-            .WithTags("Devices");
+            .WithTags("Data API (Emergency)");
         }
     }
 }

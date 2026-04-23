@@ -5,6 +5,10 @@ using JigaMotor.Everynet.Api.Infrastructure.Configuration;
 using JigaMotor.Everynet.Api.Infrastructure.Handlers;
 using JigaMotor.Everynet.Api.Features.Devices.SendEmergencyOn;
 using JigaMotor.Everynet.Api.Features.Devices.SendEmergencyOff;
+using JigaMotor.Everynet.Api.Features.Devices.ListDevices;
+using JigaMotor.Everynet.Api.Features.Devices.CreateDevice;
+using JigaMotor.Everynet.Api.Features.Devices.UpdateDevice;
+using JigaMotor.Everynet.Api.Features.Devices.DeleteDevice;
 
 namespace JigaMotor.Everynet.Api.Extensions
 {
@@ -28,6 +32,10 @@ namespace JigaMotor.Everynet.Api.Extensions
             services.AddScoped<GetDeviceByDevEuiUseCase>();
             services.AddScoped<SendEmergencyOnUseCase>();
             services.AddScoped<SendEmergencyOffUseCase>();
+            services.AddScoped<ListDevicesUseCase>();
+            services.AddScoped<CreateDeviceUseCase>();
+            services.AddScoped<UpdateDeviceUseCase>();
+            services.AddScoped<DeleteDeviceUseCase>();
 
             return services;    
         }

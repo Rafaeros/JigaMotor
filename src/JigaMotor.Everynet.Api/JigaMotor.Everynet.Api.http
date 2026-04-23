@@ -1,6 +1,74 @@
 @JigaMotor.Everynet.Api_HostAddress = http://localhost:5091
+@DevEui = cb105012c80769f7
 
-GET {{JigaMotor.Everynet.Api_HostAddress}}/weatherforecast/
+### Listar Dispositivos
+GET {{JigaMotor.Everynet.Api_HostAddress}}/api/v1/devices?limit=10&offset=0
 Accept: application/json
 
-###
+### Obter Dispositivo por DevEui
+GET {{JigaMotor.Everynet.Api_HostAddress}}/api/v1/devices/{{DevEui}}
+Accept: application/json
+
+### Criar Dispositivo
+POST {{JigaMotor.Everynet.Api_HostAddress}}/api/v1/devices
+Content-Type: application/json
+
+{
+  "dev_eui": "cb105012c80769f7",
+  "app_eui": "d66a26096626ca12",
+  "tags": ["jiga", "teste"],
+  "activation": "ABP",
+  "encryption": "NS",
+  "dev_addr": "6c89893f",
+  "nwkskey": "edf2ff46452491424cf15f0d9a29588f",
+  "appskey": "1c8a76070844d1d7a5e5e29f97f28686",
+  "dev_class": "A",
+  "counters_size": 4,
+  "adr": {
+    "tx_power": null,
+    "datarate": null,
+    "mode": "on"
+  },
+  "band": "EU863-870"
+}
+
+### Atualizar Dispositivo
+PATCH {{JigaMotor.Everynet.Api_HostAddress}}/api/v1/devices/{{DevEui}}
+Content-Type: application/json
+
+{
+  "app_eui": "d66a26096626ca12",
+  "tags": ["jiga", "atualizado"],
+  "activation": "ABP",
+  "encryption": "NS",
+  "dev_addr": "6c89893f",
+  "nwkskey": "edf2ff46452491424cf15f0d9a29588f",
+  "appskey": "1c8a76070844d1d7a5e5e29f97f28686",
+  "dev_class": "A",
+  "counters_size": 4,
+  "adr": {
+    "tx_power": null,
+    "datarate": null,
+    "mode": "on"
+  },
+  "band": "EU863-870"
+}
+
+### Excluir Dispositivo
+DELETE {{JigaMotor.Everynet.Api_HostAddress}}/api/v1/devices/{{DevEui}}
+
+### Enviar Emergência ON
+POST {{JigaMotor.Everynet.Api_HostAddress}}/api/v1/devices/emergency-on
+Content-Type: application/json
+
+{
+  "dev_eui": "{{DevEui}}"
+}
+
+### Enviar Emergência OFF
+POST {{JigaMotor.Everynet.Api_HostAddress}}/api/v1/devices/emergency-off
+Content-Type: application/json
+
+{
+  "dev_eui": "{{DevEui}}"
+}
