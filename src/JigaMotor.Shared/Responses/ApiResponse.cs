@@ -1,4 +1,4 @@
-﻿
+
 namespace JigaMotor.Shared.Responses
 {
     public class ApiResponse<T>
@@ -21,6 +21,11 @@ namespace JigaMotor.Shared.Responses
         public static ApiResponse<T> Success(T? data, string message = "Operação realizada com sucesso!")
         {
             return new ApiResponse<T>(data, message, ResponseType.Success, 200);
+        }
+
+        public static ApiResponse<T> Created(T? data, string message = "Cadastrado com sucesso!")
+        {
+            return new ApiResponse<T>(data, message, ResponseType.Success, 201);
         }
 
         public static ApiResponse<T> Info(string message)
