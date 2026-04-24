@@ -9,6 +9,7 @@ using JigaMotor.SharePoint.Api.Features.Devices.UpdateProductionMetadata;
 using JigaMotor.SharePoint.Api.Features.Devices.DeleteDeviceByDevEui;
 using JigaMotor.SharePoint.Api.Features.Devices.AttachDeviceLog;
 using JigaMotor.SharePoint.Api.Features.Devices.UpdatePowerConsumptionTests;
+using JigaMotor.SharePoint.Api.Features.Firmwares.GetFirmwaresByModel;
 
 using Scalar.AspNetCore;
 
@@ -21,6 +22,7 @@ builder.Services.AddProblemDetails();
 var app = builder.Build();
 
 app.UseExceptionHandler();
+app.UseStaticFiles();
 
 if (app.Environment.IsDevelopment())
 {
@@ -45,5 +47,8 @@ devicesGroup.MapUpdatePowerConsumptionTests();
 devicesGroup.MapUpdateProductionMetadata();
 devicesGroup.MapDeleteDeviceByDevEui();
 devicesGroup.MapAttachDeviceLog();
+
+var firmwaresGroup = apiV1.MapGroup("/firmwares").WithTags("Firmwares");
+firmwaresGroup.MapGetFirmwaresByModel();
 
 app.Run();

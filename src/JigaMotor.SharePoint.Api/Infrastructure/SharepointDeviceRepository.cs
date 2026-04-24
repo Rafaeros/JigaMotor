@@ -347,7 +347,7 @@ public class SharePointDeviceRepository(
             var baseUrl = _options.SiteUrl.Replace(":/", "/");
             if (!baseUrl.StartsWith("https://")) baseUrl = "https://" + baseUrl;
             
-            var requestUrl = $"{baseUrl}/_api/web/lists/getbytitle('{_options.ListName}')/items({item.Id})/AttachmentFiles/add(FileName='{fileName}')";
+            var requestUrl = $"{baseUrl}/_api/web/lists/getbytitle('{_options.DeviceListName}')/items({item.Id})/AttachmentFiles/add(FileName='{fileName}')";
 
             using var httpClient = _httpClientFactory.CreateClient();
             using var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
@@ -406,9 +406,9 @@ public class SharePointDeviceRepository(
 
         var listResponse = await client.Sites[_cachedSiteId].Lists.GetAsync();
         var targetList = listResponse?.Value?.FirstOrDefault(l =>
-            l.DisplayName?.Equals(_options.ListName, StringComparison.OrdinalIgnoreCase) == true ||
-            l.Name?.Equals(_options.ListName, StringComparison.OrdinalIgnoreCase) == true)
-            ?? throw new Exception($"Lista '{_options.ListName}' não encontrada.");
+            l.DisplayName?.Equals(_options.DeviceListName, StringComparison.OrdinalIgnoreCase) == true ||
+            l.Name?.Equals(_options.DeviceListName, StringComparison.OrdinalIgnoreCase) == true)
+            ?? throw new Exception($"Lista '{_options.DeviceListName}' não encontrada.");
 
         _cachedListId = targetList.Id;
 

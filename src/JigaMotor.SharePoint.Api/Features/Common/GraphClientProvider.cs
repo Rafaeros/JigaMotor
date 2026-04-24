@@ -17,22 +17,21 @@ public class GraphClientProvider(IOptions<SharePointOptions> options)
 
         // 1. Blindagem: Garante que o appsettings não está faltando nada
         if (string.IsNullOrWhiteSpace(_options.TenantId) ||
-            string.IsNullOrWhiteSpace(_options.ClientId) ||
-            string.IsNullOrWhiteSpace(_options.ClientSecret))
+            string.IsNullOrWhiteSpace(_options.ClientId))
         {
-            throw new InvalidOperationException("As credenciais do Azure AD (TenantId, ClientId ou ClientSecret) estão ausentes no arquivo de configuração.");
+            throw new InvalidOperationException("As credenciais do Azure AD (TenantId ou ClientId) estão ausentes no arquivo de configuração.");
         }
 
-        // 2. Configura a credencial "App-Only" (Fluxo Client Credentials)
-        var credential = new ClientSecretCredential(
-            tenantId: _options.TenantId,
-            clientId: _options.ClientId,
-            clientSecret: _options.ClientSecret
-        );
+        // 2. Configura a credencial "Interactive" (Login via Navegador)
+        var options = new InteractiveBrowserCredentialOptions
+        {
+            TenantId = _options.TenantId,
+            ClientId = _options.ClientId,
+            RedirectUri = new Uri("http://localhost:41473")
+        };
+        var credential = new InteractiveBrowserCredential(options);
 
         // 3. O Escopo Mágico
-        // ATENÇÃO: Para autenticação via ClientSecret, a Microsoft EXIGE que o escopo seja sempre este ".default".
-        // Isso diz à Microsoft: "Olhe lá no portal do Azure quais permissões a TI me deu (Sites.ReadWrite.All) e aplique todas elas".
         var scopes = new[] { "https://graph.microsoft.com/.default" };
 
         // 4. Instancia e salva no cache da classe
@@ -43,11 +42,13 @@ public class GraphClientProvider(IOptions<SharePointOptions> options)
 
     public async Task<string> GetSharePointAccessTokenAsync()
     {
-        var credential = new ClientSecretCredential(
-            tenantId: _options.TenantId,
-            clientId: _options.ClientId,
-            clientSecret: _options.ClientSecret
-        );
+        var options = new InteractiveBrowserCredentialOptions
+        {
+            TenantId = _options.TenantId,
+            ClientId = _options.ClientId,
+            RedirectUri = new Uri("http://localhost:41473")
+        };
+        var credential = new InteractiveBrowserCredential(options);
 
         // Extrai o host de forma robusta (ex: "tenant.sharepoint.com")
         var rawUrl = _options.SiteUrl.Replace(":/", "/");
@@ -59,6 +60,23 @@ public class GraphClientProvider(IOptions<SharePointOptions> options)
         // O escopo para SharePoint REST API deve ser o host + /.default
         var scopes = new[] { $"https://{host}/.default" };
 
+        var tokenRequestContext = new Azure.Core.TokenRequestContext(scopes);
+        var token = await credential.GetTokenAsync(tokenRequestContext);
+
+        return token.Token;
+    }
+
+    public async Task<string> GetGraphAccessTokenAsync()
+    {
+        var options = new InteractiveBrowserCredentialOptions
+        {
+            TenantId = _options.TenantId,
+            ClientId = _options.ClientId,
+            RedirectUri = new Uri("http://localhost")
+        };
+        var credential = new InteractiveBrowserCredential(options);
+
+        var scopes = new[] { "https://graph.microsoft.com/.default" };
         var tokenRequestContext = new Azure.Core.TokenRequestContext(scopes);
         var token = await credential.GetTokenAsync(tokenRequestContext);
 

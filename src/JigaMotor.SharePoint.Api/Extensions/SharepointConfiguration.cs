@@ -13,6 +13,7 @@ using JigaMotor.SharePoint.Api.Features.Devices.UpdatePowerConsumptionTests;
 using FluentValidation;
 using JigaMotor.SharePoint.Api.Infrastructure;
 using JigaMotor.SharePoint.Api.Infrastructure.Configuration;
+using JigaMotor.SharePoint.Api.Features.Firmwares.GetFirmwaresByModel;
 
 
 namespace JigaMotor.SharePoint.Api.Extensions
@@ -28,6 +29,7 @@ namespace JigaMotor.SharePoint.Api.Extensions
             services.AddSingleton<GraphClientProvider>();
 
             services.AddScoped<IDeviceRepository, SharePointDeviceRepository>();
+            services.AddScoped<IFirmwareRepository, SharePointFirmwareRepository>();
 
             services.AddScoped<GetAllDevicesUseCase>();
             services.AddScoped<CheckDevEuiExistsUseCase>();
@@ -39,6 +41,7 @@ namespace JigaMotor.SharePoint.Api.Extensions
             services.AddScoped<DeleteDeviceByDevEuiUseCase>();
             services.AddScoped<AttachDeviceLogUseCase>();
             services.AddScoped<UpdatePowerConsumptionTestsUseCase>();
+            services.AddScoped<GetFirmwaresByModelUseCase>();
 
             services.AddValidatorsFromAssembly(typeof(SharepointConfiguration).Assembly);
 
